@@ -25,18 +25,15 @@ def get_conn():
 
 
 def set_value(key, value):
-    result = get_conn().setex(key, value, exper_seconds)
-    return result
+    return get_conn().setex(key, value, exper_seconds)
 
 
 def set_value_exper(key, value, seconds):
-    result = get_conn().setex(key, value, seconds)
-    return result
+    return get_conn().setex(key, value, seconds)
 
 
 def set_value_notexper(key, value):
-    result = get_conn().set(key, value)
-    return result
+    return get_conn().set(key, value)
 
 
 def incr_key(key):
@@ -74,8 +71,7 @@ def quenen_pop(quenen_name):
 
 
 def get_hash_vale(key):
-    s = get_conn().hgetall(key)
-    return s
+    return get_conn().hgetall(key)
 
 
 def zadd_element(sortset_name, value, socre):
@@ -92,8 +88,7 @@ def zrange_element_withscores(sortset_name, begin, end):
 
 
 def zrange_element_value(sortset_name, begin, end):
-    result = get_conn().zrange(sortset_name, begin, end)
-    return result
+    return get_conn().zrange(sortset_name, begin, end)
 
 
 def hset_field(name, key, value):
@@ -125,16 +120,16 @@ def sadd(name, value):
     get_conn().expire(name, exper_seconds)
 
 
-def sadd_list(name, value: list):
-    """
-    往redis set集合中添加多条记录
-    :param name: 集合名称
-    :param value: 列表值
-    :return: None
-    """
-    if value:
-        get_conn().sadd(name, *set(value))
-        get_conn().expire(name, exper_seconds)
+def sadd_list(name, value:list):
+"""
+往redis set集合中添加多条记录
+:param name: 集合名称
+:param value: 列表值
+:return: None
+"""
+if value:
+    get_conn().sadd(name, *set(value))
+    get_conn().expire(name, exper_seconds)
 
 
 def sadd_not_expire(name, value):

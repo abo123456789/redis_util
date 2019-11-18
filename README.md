@@ -1,7 +1,7 @@
 
 redis操作工具类
 
-* 安装依赖:
+### 安装依赖:
 
 ```shell
 pip install -r requirements.txt

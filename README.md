@@ -16,8 +16,6 @@ pip install -r requirements.txt
     set_value('test1', '中国')
     print(get_value('test1'))
     print(set_value_nx('test2', '中国'))
-    hset_field('test3','aa',12)
-    print(get_conn().ttl('test3'))
     set_value_exper('test5', 'bbbb', 30)
     set_value_notexper('test6', 'ccc')
     print(incr_key('test7'))

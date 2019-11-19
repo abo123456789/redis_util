@@ -32,5 +32,10 @@ pip install -r requirements.txt
     print(smembers('test8'))
     print(check_value_inset('test8', 1))
     delete_key('test8')
+    zadd_element('test9', 'tr1', 1)
+    zadd_element('test9', 'tr2', 2)
+    zadd_element('test9', 'tr3', 3)
+    print(zrange_element_withscores('test9',0,2))
+    print(zrange_element_value('test9',0,2))
 
 ```

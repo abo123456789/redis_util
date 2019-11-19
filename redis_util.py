@@ -81,10 +81,7 @@ def zadd_element(sortset_name, value, socre):
 
 
 def zrange_element_withscores(sortset_name, begin, end):
-    result = get_conn().zrange(sortset_name, begin, end, withscores=True)
-    if len(result) > 0:
-        return result[0][1]
-    return 0
+    return get_conn().zrange(sortset_name, begin, end, withscores=True)
 
 
 def zrange_element_value(sortset_name, begin, end):
@@ -184,3 +181,8 @@ if __name__ == '__main__':
     print(smembers('test8'))
     print(check_value_inset('test8', 1))
     delete_key('test8')
+    zadd_element('test9', 'tr1', 1)
+    zadd_element('test9', 'tr2', 2)
+    zadd_element('test9', 'tr3', 3)
+    print(zrange_element_withscores('test9', 0, 2))
+    print(zrange_element_value('test9', 0, 2))

@@ -118,15 +118,15 @@ def sadd(name, value):
 
 
 def sadd_list(name, value:list):
-"""
-往redis set集合中添加多条记录
-:param name: 集合名称
-:param value: 列表值
-:return: None
-"""
-if value:
-    get_conn().sadd(name, *set(value))
-    get_conn().expire(name, exper_seconds)
+    """
+    往redis set集合中添加多条记录
+    :param name: 集合名称
+    :param value: 列表值
+    :return: None
+    """
+    if value:
+        get_conn().sadd(name, *set(value))
+        get_conn().expire(name, exper_seconds)
 
 
 def sadd_not_expire(name, value):

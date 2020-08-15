@@ -2,6 +2,8 @@
 # @Author cc
 # @TIME 2019/11/18 22:41
 # @DESC redis工具类
+import functools
+import json
 
 import redis
 
@@ -161,6 +163,38 @@ def delete_key(key):
     return get_conn().delete(key)
 
 
+def cache_redis(timeout: int = 60):
+    """缓存装饰器"""
+    def decorator(func):
+        @functools.wraps(func)
+        def wrapper(*args, **kwargs):
+            serialized_args = [str(arg) for arg in args]
+            serialized_kwargs = [str(kwargs), func.__name__]
+            serialized_args.extend(serialized_kwargs)
+            key = ''.join(serialized_args)
+            print(key)
+            rs_redis = get_value(key)
+            if rs_redis:
+                return rs_redis
+            else:
+                result = func(*args, **kwargs)
+                if result:
+                    if isinstance(result, dict) or isinstance(result, list):
+                        result = json.dumps(result)
+                    set_value_exper(key, result, seconds=timeout)
+                return result
+
+        return wrapper
+
+    return decorator
+
+
+@cache_redis(timeout=15)
+def _test_get_data(a, b):
+    print(a, b)
+    return a + b
+
+
 if __name__ == '__main__':
     set_value('test1', '中国')
     print(get_value('test1'))
@@ -186,3 +220,4 @@ if __name__ == '__main__':
     zadd_element('test9', 'tr3', 3)
     print(zrange_element_withscores('test9', 0, 2))
     print(zrange_element_value('test9', 0, 2))
+    print(_test_get_data(1, 2))

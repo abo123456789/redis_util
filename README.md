@@ -37,5 +37,11 @@ pip install -r requirements.txt
     zadd_element('test9', 'tr3', 3)
     print(zrange_element_withscores('test9',0,2))
     print(zrange_element_value('test9',0,2))
+    
+    #  自动缓存返回结果15秒
+    @cache_redis(timeout=15)
+    def _test_get_data(a, b):
+        print(a, b)
+        return a + b
 
 ```
